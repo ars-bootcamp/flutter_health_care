@@ -79,7 +79,7 @@ class BaseButton extends StatelessWidget {
                   width: 1.5,
                 )
               : null,
-          backgroundColor: bgColor ?? Colors.white,
+          backgroundColor: bgColor ?? Colors.transparent,
           padding: const EdgeInsets.symmetric(
             vertical: 12,
             // Thêm horizontal để nút không bị dẹp
@@ -87,6 +87,7 @@ class BaseButton extends StatelessWidget {
           foregroundColor: outlineColor != null
               ? outlineColor ?? ColorComponent.defaultText
               : null,
+          elevation: 0,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
