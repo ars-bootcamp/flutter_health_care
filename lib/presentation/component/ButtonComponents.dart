@@ -25,7 +25,7 @@ class PrimaryButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: ColorComponent.primaryBlue60,
-          padding: const EdgeInsets.symmetric(vertical: 14),
+          padding: const EdgeInsets.symmetric(vertical: 12),
         ),
         child: Text(
           text,
@@ -72,20 +72,20 @@ class BaseButton extends StatelessWidget {
       padding: padding,
       child: ElevatedButton(
         onPressed: onPressed,
-        style: ButtonStyle(
+        style: ElevatedButton.styleFrom(
           side: isHideOutline != true
-              ? MaterialStatePropertyAll(
-                  BorderSide(
-                    color: outlineColor ?? ColorComponent.defaultText,
-                    width: 1.5,
-                  ),
+              ? BorderSide(
+                  color: outlineColor ?? ColorComponent.defaultText,
+                  width: 1.5,
                 )
               : null,
-          backgroundColor: MaterialStatePropertyAll(bgColor ?? Colors.white),
+          backgroundColor: bgColor ?? Colors.white,
+          padding: const EdgeInsets.symmetric(
+            vertical: 12,
+            // Thêm horizontal để nút không bị dẹp
+          ),
           foregroundColor: outlineColor != null
-              ? MaterialStatePropertyAll(
-                  outlineColor ?? ColorComponent.defaultText,
-                )
+              ? outlineColor ?? ColorComponent.defaultText
               : null,
         ),
         child: Row(

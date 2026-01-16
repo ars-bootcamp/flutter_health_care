@@ -27,6 +27,7 @@ class BaseTextField extends StatelessWidget {
           decoration: InputDecoration(
             filled: true,
             fillColor: ColorComponent.gray10,
+            border: InputBorder.none,
           ),
         ),
       ],
