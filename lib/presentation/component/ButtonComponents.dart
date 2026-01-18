@@ -67,7 +67,7 @@ class BaseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width ?? double.infinity,
+      width: width,
       height: height,
       padding: padding,
       child: ElevatedButton(
@@ -79,7 +79,7 @@ class BaseButton extends StatelessWidget {
                   width: 1.5,
                 )
               : null,
-          backgroundColor: bgColor ?? Colors.transparent,
+          backgroundColor: bgColor ?? Colors.white,
           padding: const EdgeInsets.symmetric(
             vertical: 12,
             // Thêm horizontal để nút không bị dẹp
