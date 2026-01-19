@@ -4,10 +4,14 @@ import 'src.dart';
 class BaseTextField extends StatelessWidget {
   final String labelText;
   final double? labelFontSize;
+  final bool? isHideText;
+  final void Function(String)? onChanged;
   const BaseTextField({
     super.key,
     required this.labelText,
     this.labelFontSize,
+    this.onChanged,
+    this.isHideText,
   });
 
   @override
@@ -23,12 +27,14 @@ class BaseTextField extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        const TextField(
-          decoration: InputDecoration(
+        TextField(
+          decoration: const InputDecoration(
             filled: true,
             fillColor: ColorComponent.gray10,
             border: InputBorder.none,
           ),
+          obscureText: isHideText ?? false,
+          onChanged: onChanged,
         ),
       ],
     );
