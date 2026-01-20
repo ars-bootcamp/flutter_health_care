@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
+        const Text(
           "Hi {{name}}",
           style: TextStyle(
             fontSize: 28,
@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.grey[300], // Màu xám giả lập ảnh chưa load
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Center(
+            child: const Center(
               child: Icon(Icons.close, color: Colors.white, size: 50), // Icon X giả lập placeholder
             ),
           ),

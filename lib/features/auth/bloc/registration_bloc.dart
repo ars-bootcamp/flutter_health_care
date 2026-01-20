@@ -95,29 +95,15 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
       }
     });
 
-    on<RegistrationNextStepEvent>(onMovingToNextStep);
-
-    on<RegistrationReturnStepEvent>(
-      (event, emit) {
-        final isFirstStep =
-            state.currentStep == RegistrationSteps.giveBasicInfo;
-        if (isFirstStep) {
-          event.handleGoBack?.call();
-        } else {
-          emit(state.copyWith(
-            currentStep: RegistrationSteps.giveBasicInfo,
-          ));
-        }
-      },
-    );
-
     on<RegistrationPatientDataChangeEvent>((event, emit) {
       emit(state.copyWith(patientId: event.patientId));
     });
 
-    on<SubmitRegistration>(onSubmitRegistration);
+    on<RegistrationReturnStepEvent>(onReturnStepEvent);
 
-    on<RegistrationReturnHandler>(onReturnHandler);
+    on<RegistrationNextStepEvent>(onMovingToNextStep);
+
+    on<SubmitRegistration>(onSubmitRegistration);
   }
 
   void onMovingToNextStep(
@@ -169,6 +155,20 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     }
   }
 
+  void onReturnStepEvent(
+    RegistrationReturnStepEvent event,
+    Emitter<RegistrationState> emit,
+  ) {
+    final isFirstStep = state.currentStep == RegistrationSteps.giveBasicInfo;
+    if (isFirstStep) {
+      event.handleGoBack?.call();
+    } else {
+      emit(state.copyWith(
+        currentStep: RegistrationSteps.giveBasicInfo,
+      ));
+    }
+  }
+
   bool isAnyDataEmpty() {
     return isStringNullOrEmpty(state.firstName) &&
         isStringNullOrEmpty(state.lastName) &&
@@ -178,20 +178,6 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
 
   bool isStringNullOrEmpty(String? data) {
     return data == null || data.isEmpty;
-  }
-
-  void onReturnHandler(
-    RegistrationReturnHandler event,
-    Emitter<RegistrationState> emit,
-  ) {
-    if (state.currentStep == RegistrationSteps.givePatientInfo) {
-      emit(state.copyWith(
-        currentStep: RegistrationSteps.giveBasicInfo,
-        status: RegistrationStatus.initial,
-        errorMessage: null,
-      ));
-      // set textData
-    }
   }
 
   bool isValidName(String? name) {

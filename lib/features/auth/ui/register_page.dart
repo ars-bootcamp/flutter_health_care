@@ -41,58 +41,56 @@ class RegistrationView extends StatelessWidget {
                 message: state.errorMessage ?? 'System Error!'),
           );
         }
-        if (state.status == RegistrationStatus.loading) {
-          showTopSnackBar(
-            Overlay.of(context),
-            CustomSnackBar.error(
-                message: state.errorMessage ?? 'System Error!'),
-          );
-        }
         if (state.status == RegistrationStatus.success) {
-          // Do sth after successful registration
           showTopSnackBar(
             Overlay.of(context),
             const CustomSnackBar.success(message: "Registration Successful!"),
           );
-          context.goNamed(RoutePaths.home);
+          context.go(RoutePaths.home);
         }
       },
       child: BlocBuilder<RegistrationBloc, RegistrationState>(
         builder: (context, state) {
           final isFirstStep =
               state.currentStep == RegistrationSteps.giveBasicInfo;
-          return Scaffold(
-            appBar: AppBar(
-              leadingWidth: 100,
-              leading: BaseButton(
-                text: 'Back',
-                icon: SvgPicture.asset(
-                  "assets/icons/arrow_left.svg",
-                  width: 9,
-                  height: 16,
+          final isLoading = state.status == RegistrationStatus.loading;
+          return LoadingOverlay(
+            isLoading: isLoading,
+            loadingText: "Loading, please wait...",
+            child: Scaffold(
+              appBar: AppBar(
+                leadingWidth: 100,
+                leading: BaseButton(
+                  text: 'Back',
+                  icon: SvgPicture.asset(
+                    "assets/icons/arrow_left.svg",
+                    width: 9,
+                    height: 16,
+                  ),
+                  outlineColor: ColorComponent.primaryBlue60,
+                  txtColor: ColorComponent.primaryBlue60,
+                  isHideOutline: true,
+                  onPressed: () {
+                    context.read<RegistrationBloc>().add(
+                        RegistrationReturnStepEvent(
+                            () => context.goNamed(RoutePaths.login)));
+                  },
                 ),
-                outlineColor: ColorComponent.primaryBlue60,
-                isHideOutline: true,
-                onPressed: () {
-                  context.read<RegistrationBloc>().add(
-                      RegistrationReturnStepEvent(
-                          () => context.goNamed(RoutePaths.login)));
-                },
               ),
-            ),
-            body: SafeArea(
-              child: Container(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    headerText(isFirstStep),
-                    const SizedBox(height: 24),
-                    buildErrorText(state.errorMessage),
-                    const SizedBox(height: 12),
-                    isFirstStep
-                        ? const RegisterFirstStep()
-                        : const RegisterLastStep(),
-                  ],
+              body: SafeArea(
+                child: Container(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      headerText(isFirstStep),
+                      const SizedBox(height: 24),
+                      buildErrorText(state.errorMessage),
+                      const SizedBox(height: 12),
+                      isFirstStep
+                          ? const RegisterFirstStep()
+                          : const RegisterLastStep(),
+                    ],
+                  ),
                 ),
               ),
             ),

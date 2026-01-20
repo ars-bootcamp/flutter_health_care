@@ -34,25 +34,9 @@ class _RegisterLastStepState extends State<RegisterLastStep> {
         final isPatientIdValid = regisBloc.state.patientId.isNotNullOrEmpty;
         return Expanded(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              BaseTextField(
-                labelText: "Patient ID",
-                textController: patientIdTxtCtrl,
-                onChanged: (t) => regisBloc.add(
-                  RegistrationPatientDataChangeEvent(patientId: t),
-                ),
-              ),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: const BaseText(
-                  "If you don’t have a Patient ID yet, please skip this question.",
-                  fontSize: 10,
-                  color: ColorComponent.gray60,
-                ),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
+              patientFormData(),
               Row(
                 children: [
                   Expanded(
@@ -82,6 +66,31 @@ class _RegisterLastStepState extends State<RegisterLastStep> {
           ),
         );
       },
+    );
+  }
+
+  Widget patientFormData() {
+    return Column(
+      children: [
+        BaseTextField(
+          labelText: "Patient ID",
+          textController: patientIdTxtCtrl,
+          onChanged: (t) => regisBloc.add(
+            RegistrationPatientDataChangeEvent(patientId: t),
+          ),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          child: const BaseText(
+            "If you don’t have a Patient ID yet, please skip this question.",
+            fontSize: 10,
+            color: ColorComponent.gray60,
+          ),
+        ),
+      ],
     );
   }
 }

@@ -91,10 +91,3 @@ class SubmitRegistration extends RegistrationEvent {
   @override
   List<Object> get props => [];
 }
-
-class RegistrationReturnHandler extends RegistrationEvent {
-  const RegistrationReturnHandler();
-
-  // @override
-  // List<Object> get props => [];
-}
