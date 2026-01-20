@@ -86,18 +86,10 @@ class RegistrationReturnStepEvent extends RegistrationEvent {
 }
 
 class SubmitRegistration extends RegistrationEvent {
-  final String? patientId;
-  final String email;
-  final String password;
-
-  const SubmitRegistration({
-    required this.email,
-    required this.password,
-    this.patientId,
-  });
+  const SubmitRegistration();
 
   @override
-  List<Object> get props => [email, password];
+  List<Object> get props => [];
 }
 
 class RegistrationReturnHandler extends RegistrationEvent {

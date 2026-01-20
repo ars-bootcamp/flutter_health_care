@@ -18,13 +18,13 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     on<RegistrationFirstNameChangeEvent>((event, emit) {
       if (event.firstName.isEmpty) {
         emit(state.copyWith(
-          status: RegistrationStatus.initial, //failure
+          status: RegistrationStatus.initial,
           errorMessage: 'First name cannot be empty',
         ));
         return;
       } else if (isValidName(event.firstName) == false) {
         emit(state.copyWith(
-          status: RegistrationStatus.initial, //failure
+          status: RegistrationStatus.initial,
           errorMessage: 'First name is invalid',
         ));
         return;
@@ -39,21 +39,15 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     on<RegistrationLastNameChangeEvent>((event, emit) {
       if (event.lastName.isEmpty) {
         emit(state.copyWith(
-          status: RegistrationStatus.initial, // failure
+          status: RegistrationStatus.initial,
           errorMessage: 'Last name cannot be empty',
         ));
-        // emit(state.copyWith(
-        //   status: RegistrationStatus.initial,
-        // ));
         return;
       } else if (isValidName(event.lastName) == false) {
         emit(state.copyWith(
-          status: RegistrationStatus.initial, //failure,
+          status: RegistrationStatus.initial,
           errorMessage: 'Last name is invalid',
         ));
-        // emit(state.copyWith(
-        //   status: RegistrationStatus.initial,
-        // ));
         return;
       } else {
         emit(state.copyWith(
@@ -66,21 +60,15 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     on<RegistrationEmailChangeEvent>((event, emit) {
       if (event.email.isEmpty) {
         emit(state.copyWith(
-          status: RegistrationStatus.initial, //failure,
+          status: RegistrationStatus.initial,
           errorMessage: 'Email cannot be empty',
         ));
-        // emit(state.copyWith(
-        //   status: RegistrationStatus.initial,
-        // ));
         return;
       } else if (isValidEmail(event.email) == false) {
         emit(state.copyWith(
           status: RegistrationStatus.initial,
           errorMessage: 'Invalid email',
         ));
-        // emit(state.copyWith(
-        //   status: RegistrationStatus.initial,
-        // ));
       } else {
         emit(state.copyWith(
           email: event.email,
@@ -96,14 +84,14 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     on<RegistrationConfirmPasswordChangeEvent>((event, emit) {
       if (event.confirmPassword != state.password) {
         emit(state.copyWith(
-          status: RegistrationStatus.initial, //failure,
+          status: RegistrationStatus.initial,
           errorMessage: 'Password and confirm password do not match',
         ));
-        // emit(state.copyWith(
-        //   status: RegistrationStatus.initial,
-        // ));
       } else {
-        emit(state.copyWith(confirmPassword: event.confirmPassword));
+        emit(state.copyWith(
+          confirmPassword: event.confirmPassword,
+          errorMessage: "",
+        ));
       }
     });
 
@@ -159,7 +147,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     // Implement registration logic here
     emit(
       state.copyWith(
-        patientId: event.patientId,
+        patientId: state.patientId,
         status: RegistrationStatus.loading,
       ),
     );
@@ -202,6 +190,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
         status: RegistrationStatus.initial,
         errorMessage: null,
       ));
+      // set textData
     }
   }
 

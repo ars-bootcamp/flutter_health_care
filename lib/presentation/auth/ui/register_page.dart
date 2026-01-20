@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_health_care/core/registration_state_enum.dart';
@@ -9,9 +7,12 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../../component/src.dart';
 import '../../routes/route_paths.dart';
-import '../bloc/registration_bloc.dart';
-import '../bloc/registration_event.dart';
-import '../bloc/registration_state.dart';
+import '../binding/registration_binding.dart';
+import '../viewmodel/registration_bloc.dart';
+import '../viewmodel/registration_event.dart';
+import '../viewmodel/registration_state.dart';
+import 'register_first_step_widget.dart';
+import 'register_last_step_widget.dart';
 import 'register_widgets.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -20,7 +21,7 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RegistrationBloc(),
+      create: (context) => getIt<RegistrationBloc>(),
       child: const RegistrationView(),
     );
   }
@@ -32,13 +33,19 @@ class RegistrationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<RegistrationBloc, RegistrationState>(
-      // listenWhen: (previous, current) =>
-      //     previous.currentStep != current.currentStep,
       listener: (context, state) {
         if (state.status == RegistrationStatus.failure) {
           showTopSnackBar(
             Overlay.of(context),
-            CustomSnackBar.error(message: state.errorMessage ?? 'Lỗi hệ thống'),
+            CustomSnackBar.error(
+                message: state.errorMessage ?? 'System Error!'),
+          );
+        }
+        if (state.status == RegistrationStatus.loading) {
+          showTopSnackBar(
+            Overlay.of(context),
+            CustomSnackBar.error(
+                message: state.errorMessage ?? 'System Error!'),
           );
         }
         if (state.status == RegistrationStatus.success) {
@@ -67,7 +74,6 @@ class RegistrationView extends StatelessWidget {
                 outlineColor: ColorComponent.primaryBlue60,
                 isHideOutline: true,
                 onPressed: () {
-                  log("Test back button pressed");
                   context.read<RegistrationBloc>().add(
                       RegistrationReturnStepEvent(
                           () => context.goNamed(RoutePaths.login)));
@@ -77,18 +83,16 @@ class RegistrationView extends StatelessWidget {
             body: SafeArea(
               child: Container(
                 padding: const EdgeInsets.all(16.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      headerText(isFirstStep),
-                      const SizedBox(height: 24),
-                      buildErrorText(state.errorMessage),
-                      const SizedBox(height: 12),
-                      isFirstStep
-                          ? buildBodyForm(context)
-                          : providePatientData(),
-                    ],
-                  ),
+                child: Column(
+                  children: [
+                    headerText(isFirstStep),
+                    const SizedBox(height: 24),
+                    buildErrorText(state.errorMessage),
+                    const SizedBox(height: 12),
+                    isFirstStep
+                        ? const RegisterFirstStep()
+                        : const RegisterLastStep(),
+                  ],
                 ),
               ),
             ),
@@ -98,14 +102,3 @@ class RegistrationView extends StatelessWidget {
     );
   }
 }
-
-Widget headerText(bool isFirstStep) => Container(
-      alignment: Alignment.centerLeft,
-      child: BaseText(
-        isFirstStep
-            ? "Sign Up"
-            : "Do you have a Patient ID?", // Do you have a Patient ID?
-        fontSize: 32,
-        fontWeight: FontWeight.w700,
-      ),
-    );
