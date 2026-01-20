@@ -1,6 +1,6 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:flutter_health_care/presentation/component/ColorComponent.dart';
+import 'package:flutter_health_care/shared/components/ColorComponent.dart';
 
 class BaseText extends StatelessWidget {
   final String text;

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_health_care/core/string_extension.dart';
 
-import '../../component/src.dart';
-import '../viewmodel/src.dart';
+import '../../../shared/components/src.dart';
+import '../bloc/src.dart';
 
 class RegisterLastStep extends StatefulWidget {
   const RegisterLastStep({super.key});

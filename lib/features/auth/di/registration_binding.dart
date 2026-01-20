@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 
-import '../viewmodel/src.dart';
+import '../bloc/src.dart';
 
 final getIt = GetIt.instance;
 

@@ -1,4 +1,4 @@
-import 'package:flutter_health_care/presentation/routes/route_paths.dart';
+import 'package:flutter_health_care/features/routes/route_paths.dart';
 import 'package:go_router/go_router.dart';
 
 import '../auth/ui/src.dart';

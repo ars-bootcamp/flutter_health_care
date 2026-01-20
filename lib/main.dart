@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_health_care/presentation/auth/binding/registration_binding.dart';
-import 'presentation/routes/app_router.dart';
+import 'package:flutter_health_care/features/auth/di/registration_binding.dart';
+import 'features/routes/app_router.dart';
 
 void main() {
   runApp(const MyApp());

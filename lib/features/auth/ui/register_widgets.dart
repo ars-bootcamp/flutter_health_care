@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_health_care/core/string_extension.dart';
-import '../../component/src.dart';
+import '../../../shared/components/src.dart';
 
 Widget headerText(bool isFirstStep) => Container(
       alignment: Alignment.centerLeft,
