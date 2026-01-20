@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'src.dart';
 
 class BaseTextField extends StatelessWidget {
+  final TextEditingController? textController;
   final String labelText;
   final double? labelFontSize;
   final bool? isHideText;
   final void Function(String)? onChanged;
+
   const BaseTextField({
     super.key,
+    this.textController,
     required this.labelText,
+    this.isHideText,
     this.labelFontSize,
     this.onChanged,
-    this.isHideText,
   });
 
   @override
@@ -33,6 +36,7 @@ class BaseTextField extends StatelessWidget {
             fillColor: ColorComponent.gray10,
             border: InputBorder.none,
           ),
+          controller: textController,
           obscureText: isHideText ?? false,
           onChanged: onChanged,
         ),

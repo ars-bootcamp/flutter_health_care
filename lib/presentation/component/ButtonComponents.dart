@@ -47,6 +47,7 @@ class BaseButton extends StatelessWidget {
   final SvgPicture? icon;
   final Color? bgColor;
   final Color? outlineColor;
+  final Color? txtColor;
   final double? width;
   final double? height;
   final bool? isHideOutline;
@@ -62,6 +63,7 @@ class BaseButton extends StatelessWidget {
     this.bgColor,
     this.outlineColor,
     this.isHideOutline,
+    this.txtColor,
   });
 
   @override
@@ -75,19 +77,20 @@ class BaseButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           side: isHideOutline != true
               ? BorderSide(
-                  color: outlineColor ?? ColorComponent.defaultText,
+                  color: outlineColor ?? Colors.transparent,
                   width: 1.5,
                 )
               : null,
           backgroundColor: bgColor ?? Colors.white,
           padding: const EdgeInsets.symmetric(
             vertical: 12,
-            // Thêm horizontal để nút không bị dẹp
+            horizontal: 4,
           ),
-          foregroundColor: outlineColor != null
-              ? outlineColor ?? ColorComponent.defaultText
-              : null,
+          foregroundColor:
+              outlineColor != null ? outlineColor ?? Colors.transparent : null,
           elevation: 0,
+          surfaceTintColor: Colors.transparent,
+          shadowColor: Colors.transparent,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -97,7 +100,7 @@ class BaseButton extends StatelessWidget {
             BaseText(
               text,
               fontSize: 16,
-              color: outlineColor,
+              color: txtColor,
               fontWeight: FontWeight.w600,
             ),
           ],
