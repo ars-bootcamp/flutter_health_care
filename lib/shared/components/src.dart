@@ -1,5 +1,5 @@
-export 'BaseText.dart';
-export 'ColorComponent.dart';
-export 'ButtonComponents.dart';
-export 'TextFieldComponent.dart';
+export 'text_component.dart';
+export 'color_component.dart';
+export 'button_component.dart';
+export 'text_field_component.dart';
 export 'loading_overlay.dart';
