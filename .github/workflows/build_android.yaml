@@ -16,15 +16,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      # - name: Validate branch naming
-      #   if: github.ref_name != 'master'
-      #   shell: bash
-      # run: |
-      #   if [[ "${GITHUB_REF_NAME}" =~ ^feature/MobileHC-[0-9]+_.+ || "${GITHUB_REF_NAME}" =~ ^bugfix/MobileHC-[0-9]+_.+ ]]; then
-      #     exit 0
-      #   fi
-      #   echo "Branch name must match feature/MobileHC-{number}_{text} or bugfix/MobileHC-{number}_{text}" >&2
-      #   exit 1
+      - name: Validate branch naming
+        if: github.ref_name != 'master'
+        shell: bash
+        run: |
+          if [[ "${GITHUB_REF_NAME}" =~ ^feature/MobileHC-[0-9]+_.+ || "${GITHUB_REF_NAME}" =~ ^bugfix/MobileHC-[0-9]+_.+ ]]; then
+            exit 0
+          fi
+          echo "Branch name must match feature/MobileHC-{number}_{text} or bugfix/MobileHC-{number}_{text}" >&2
+          exit 1
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
