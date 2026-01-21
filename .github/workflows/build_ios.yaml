@@ -52,7 +52,7 @@ jobs:
           cd ..
       # CChạy app lấy fil Pod
       - name: Install CocoaPods
-            run: flutter build ios
+        run: flutter build ios
 
       - name: Run Tests
         run: flutter test
