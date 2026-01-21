@@ -1,7 +1,6 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:flutter_health_care/presentation/component/BaseText.dart';
-import 'package:flutter_health_care/presentation/component/ColorComponent.dart';
+import 'package:flutter_health_care/shared/components/text_component.dart';
+import 'package:flutter_health_care/shared/components/color_component.dart';
 import 'package:flutter_svg/svg.dart';
 
 class PrimaryButton extends StatelessWidget {
