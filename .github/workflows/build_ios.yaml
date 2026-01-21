@@ -45,7 +45,7 @@ jobs:
           cd ios
           pod install
           cd ..
-      - name: Install CocoaPods
+      - name: Start Build App
         run: flutter build ios
 
       - name: Run Tests
