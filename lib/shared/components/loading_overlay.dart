@@ -1,0 +1,54 @@
+import 'package:flutter/material.dart';
+
+class LoadingOverlay extends StatelessWidget {
+  final bool isLoading;
+  final Widget child;
+  final String? loadingText;
+
+  const LoadingOverlay({
+    super.key,
+    required this.isLoading,
+    required this.child,
+    this.loadingText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        child,
+        if (isLoading)
+          AbsorbPointer(
+            absorbing: true,
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: Colors.black.withOpacity(0.5),
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    ),
+                    if (loadingText != null) ...[
+                      const SizedBox(height: 24),
+                      Text(
+                        loadingText!,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                    ]
+                  ],
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}
